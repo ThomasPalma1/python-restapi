@@ -2,7 +2,7 @@ from hmac import compare_digest
 from user import User
 
 users = [
-    User(1, 'user1', 'abcxyz')
+    User(1, 'gin', 'qwerty')
 ]
 
 username_mapping = {u.username: u for u in users}
