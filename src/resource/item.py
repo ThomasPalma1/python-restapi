@@ -2,7 +2,7 @@ import uuid
 from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from src.db import items
+from src.db import items, stores
 
 ItemsRoute = Blueprint("Items", __name__, description="Operation on Items")
 
