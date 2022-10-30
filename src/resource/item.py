@@ -10,6 +10,7 @@ ItemsRoute = Blueprint("Items", __name__, description="Operation on Items")
 
 @ItemsRoute.route("/item/<string:item_id>")
 class Item(MethodView):
+    @ItemsRoute.response(200, ItemSchema)
     def get(self, item_id):
         try:
             return items[item_id]
@@ -24,6 +25,7 @@ class Item(MethodView):
             abort(404, message="Item not found!")
 
     @ItemsRoute.arguments(ItemUpdateSchema)
+    @ItemsRoute.response(200, ItemSchema)
     def put(self, item_data, item_id):
         try:
             item = items[item_id]
@@ -36,10 +38,12 @@ class Item(MethodView):
 
 @ItemsRoute.route("/item")
 class ItemList(MethodView):
+    @ItemsRoute.response(200, ItemSchema(many=True))
     def get(self):
-        return {"stores": list(items.values())}
+        return items.values()
 
     @ItemsRoute.arguments(ItemSchema)
+    @ItemsRoute.response(201, ItemSchema)
     def post(self, item_data):
         for item in items.values():
             if (
